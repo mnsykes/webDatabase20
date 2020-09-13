@@ -1,5 +1,23 @@
 /* CSS Document */
-#wrapper{border:thin solid black}
-#topHeader{font-size:24px; text-align:center}
-#footer{text-align:center; padding:5px; border-top:thin solid black}
-#main {border-left:thin solid black}
+#wrapper {
+	border: thin solid black;
+}
+
+#top-header {
+	font-size: 60px;
+	text-align: center;
+}
+
+#footer {
+	text-align: center;
+	padding: 5px;
+	border-top: thin solid black;
+}
+
+#main-content {
+	border-left: thin solid black;
+}
+
+.navbar {
+	width: 100%;
+}

@@ -30,15 +30,25 @@
 	</head>
 	<body>
 		<div id="wrapper" class="container">
-			<div id="topHeader" class="row" style="text-align: center !important">HEADER</div>
-			<div id="horizontalnav" class="row">HORIZONTAL NAV</div>
-			<div id="maincontent" class="row">
-				<div id="center" class="col-sm-9 order-last">
-					<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">CAROUSEL</div>
-				</div>
-				<div id="left" class="col-sm-3 order-first">GENRE NAV</div>
+			<div id="top-header" class="row" style="text-align: center !important">
+				<cfinclude  template="header.cfm">
 			</div>
-			<div id="footer" class="row" style="text-align: center !important">FOOTER</div>
+			<div id="horizontalnav" class="row">
+				<cfinclude  template="horizontalnav.cfm">
+			</div>
+			<div id="main-content" class="row">
+				<div id="center" class="col-sm-9 order-last">
+					<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+						<cfinclude  template="carousel.cfm">
+					</div>
+				</div>
+				<div id="left" class="col-sm-3 order-first">
+					<cfinclude  template="genrenav.cfm">
+				</div>
+			</div>
+			<div id="footer" class="row bg-light text-dark" style="text-align: center !important">
+				<cfinclude  template="footer.cfm">
+			</div>
 		</div>
 	</body>
 </html>
