@@ -3,7 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<title>UML Database Course - name</title>
-    <link href="includes/bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet">
+<!---     <link href="includes/bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet"> --->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link href="includes/css/class.css" type="text/css" rel="stylesheet">
     <script src="includes/js/class.js" type="text/javascript"></script>
 </head>
@@ -27,8 +28,10 @@
         <div id="topheader">Class INFO 2480 Web Site Database Implementation - Local Host Table of Contents Page</div></cfoutput>
 		<div id="mainarea">
 			<div id="leftgutter" class="col-lg-3 col-md-3 col-sm-3">
-				<ul class="nav nav-stacked">
-					<li style="cursor:pointer"><a onclick="getarticle('aboutpage.cfm')" target="_blank">What is this page?</a></li>
+				<ul class="nav flex-column">
+					<li style="cursor:pointer">
+						<a onclick="getarticle('aboutpage.cfm')" target="_blank">What is this page?</a>
+					</li>
 					<cfoutput query="alldirs">
 						<cfif name neq 'includes'>
 							<li><a href="#name#" target="_blank">#name#</a></li>

@@ -27,7 +27,7 @@
             </div>
         </div>
         <div id="footer" class="row">
-            My Footer
+            
         </div>
     </div>
 </body>
