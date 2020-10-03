@@ -1,9 +1,9 @@
 <cfcomponent>
-	<cfset this.name="%%SiteName%%">
-	<cfset this.dsource='%%SiteName%%'>
+	<cfset this.name="msyke65870">
+	<cfset this.dsource='msyke65870'>
     <cfset this.sessionmanagement="true">
 	<cffunction name="onApplicationStart">
-    	<cfset application.dsource='%%SiteName%%'>
+    	<cfset application.dsource='msyke65870'>
     </cffunction>
 
 	<cffunction name="onRequestStart">
