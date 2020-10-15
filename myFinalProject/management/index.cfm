@@ -11,14 +11,21 @@
 		/>
 		<title>Inventory Management</title>
   </head>
-  <cfparam name="tool" default="addedit">
+	<cfparam name="tool" default="addedit">
 	<body>
-		<div id="wrapper" class="container">
-			<div id="toolbar" class="row">
-				Toolbar
+		<div id="wrapper" class="container-fluid">
+			<div id="top-header" class="row" style="text-align: center !important">
+				<cfinclude  template="../components/header.cfm">
+			</div>
+			<div class="toolbar">
+<!--- 		How to pass in with #tool#?		 --->
+				<cfinclude  template="managementnavbar.cfm">
 			</div>
 			<div id="main" class="row">
 				<cfinclude  template="#tool#.cfm">
+			</div>
+			<div id="footer" class="row bg-light text-dark" style="text-align: center !important">
+				<cfinclude  template="../components/footer.cfm">
 			</div>
 		</div>
 		<script
