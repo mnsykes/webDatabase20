@@ -5,24 +5,24 @@
 </ol>
 <div class="carousel-inner">
   <div class="carousel-item active">
-      <img src="../images/adobe.jpg" class="d-block w-100 " alt="..."  style="width:65% !important; margin-left:auto;margin-right:auto">
+      <img src="images/adobe.jpg" class="d-block w-100 " alt="..."  style="width:65% !important; margin-left:auto;margin-right:auto">
       <div class="carousel-caption d-none d-md-block">
           <h5>Adobe Dreamweaver</h5>
-          <p>A Canadian Treasure</p>
+          <p>2020</p>
       </div>
   </div>
   <div class="carousel-item">
-      <img src="../includes/classimages/AmeliaBedelia.jpg" class="d-block w-100" alt="..."  style="width:65% !important; margin-left:auto;margin-right:auto">
+      <img src="images/abovethefold.jpg" class="d-block w-100" alt="..."  style="width:65% !important; margin-left:auto;margin-right:auto">
       <div class="carousel-caption d-none d-md-block">
-          <h5>Amelia Bedelia</h5>
-          <p>Meet the most literal person alive.</p>
+          <h5>Above The Fold</h5>
+          <p>A book about design</p>
       </div>
   </div>
   <div class="carousel-item">
-      <img src="../includes/classimages/EncyclopediaBrown.jpg" class="d-block w-100" alt="..."  style="width:65% !important; margin-left:auto;margin-right:auto">
+      <img src="images/ideabook.jpg" class="d-block w-100" alt="..."  style="width:65% !important; margin-left:auto;margin-right:auto">
       <div class="carousel-caption d-none d-md-block">
-          <h5>Encyclopedia Brown</h5>
-          <p>Boy Detective.</p>
+          <h5>The Web Designer's Idea Book</h5>
+          <p>Another book about design.</p>
       </div>
   </div>
   <div class="carousel-item">

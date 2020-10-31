@@ -12,27 +12,28 @@
 		<link href="../includes/css/class.css" rel="stylesheet" />
 		<link href="../includes/css/mycss.css" rel="stylesheet" />
 	</head>
-	<cfparam name="p" default="carousel">
+	 <cfinclude  template="stateinfo.cfm"> 
 	<body>
+		<cfparam name="p" default="carousel">
 		<div id="wrapper" class="container">
 			<div id="top-header" class="row" style="text-align: center !important">
-				<cfinclude  template="components/header.cfm">
+				<cfinclude  template="header.cfm">
 			</div>
 			<div id="horizontalnav" class="row">
-				<cfinclude  template="components/horizontalnav.cfm">
+				<cfinclude  template="horizontalnav.cfm">
 			</div>
 			<div id="main-content" class="row">
 				<div id="center" class="col-sm-9 order-last">
 					<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
- 						<cfinclude  template="components/#p#.cfm">
+ 						<cfinclude  template="#p#.cfm">
 					</div>
 				</div>
-				<div id="left" class="col-sm-3 order-first">
-					<cfinclude  template="components/genrenav.cfm">
+				<div id="leftgutter" class="col-sm-3 order-first">
+					<cfinclude  template="genrenav.cfm">
 				</div>
 			</div>
 			<div id="footer" class="row bg-light text-dark" style="text-align: center !important">
-				<cfinclude  template="components/footer.cfm">
+				<cfinclude  template="footer.cfm">
 			</div>
 		</div>
 		<script

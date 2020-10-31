@@ -1,5 +1,7 @@
+
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container"
+    <div class="container">
         <a href="" class="navbar-brand">
         <img src="../includes/classimages/rdb.png"/>
         </a>
@@ -10,7 +12,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="index.cfm">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="">Store Information</a>
@@ -31,7 +33,25 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-            <li><a>Login</a></li>
+                <cfoutput>
+                    <cfif session.isloggedin>
+                        <li>
+                            <a>Welcome #session.user.firstName#</a>
+                        </li>
+                        <cfif session.user.isadmin>
+                                <li>
+                                    <a href="/msyke65870/myFinalProject/management">Management</a>
+                                </li>
+                        </cfif>
+                        <li>
+                            <a href="#cgi.script_name#?p=logoff">Logout</a>
+                        </li>
+                    <cfelse>
+                        <li>
+                            <a href="#cgi.script_name#?p=login">Login</a>
+                        </li>
+                    </cfif>
+                </cfoutput>
             </ul>
         </div>
     </div>

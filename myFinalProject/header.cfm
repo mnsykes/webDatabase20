@@ -1,3 +1,3 @@
 <div class="col-lg-12">
-  Read 'Dese Books!
+  The Bookstore
 </div>

@@ -18,6 +18,10 @@
 	border-left: thin solid black;
 }
 
+#main {
+	border-left: thin solid black;
+}
+
 .navbar {
 	width: 100%;
 }

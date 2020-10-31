@@ -9,23 +9,24 @@
 			integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
 			crossorigin="anonymous"
 		/>
+		<script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../includes/css/mycss.css">
 		<title>Inventory Management</title>
   </head>
 	<cfparam name="tool" default="addedit">
 	<body>
 		<div id="wrapper" class="container-fluid">
 			<div id="top-header" class="row" style="text-align: center !important">
-				<cfinclude  template="../components/header.cfm">
+				<cfinclude  template="../header.cfm">
 			</div>
 			<div class="toolbar">
-<!--- 		How to pass in with #tool#?		 --->
 				<cfinclude  template="managementnavbar.cfm">
 			</div>
 			<div id="main" class="row">
 				<cfinclude  template="#tool#.cfm">
 			</div>
 			<div id="footer" class="row bg-light text-dark" style="text-align: center !important">
-				<cfinclude  template="../components/footer.cfm">
+				<cfinclude  template="../footer.cfm">
 			</div>
 		</div>
 		<script

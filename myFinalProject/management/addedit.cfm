@@ -1,10 +1,10 @@
-<cfparam  name="book" default="">
-<cfparam name="qterm" default="">
+<cfparam  name = "book" default = "">
+<cfparam name = "qterm" default = "">
 
 <cfoutput>
   <cftry>
     <cfset processForms()>
-    <div id="leftgutter" class="col-sm-2 col-lg-pull-10">
+    <div id ="leftgutter" class ="col-sm-2 col-lg-pull-10">
        <cfset sideNav()>
     </div>
     <div id="main" class="col-sm-10 col-lg-push-2">
@@ -23,24 +23,50 @@
 
 
 <!--- Functions --->
-<cffunction  name="mainForm">
+<cffunction  name = "mainForm">
   <cfif book neq ''>
-    <cfquery name="thisbook" datasource="#application.dsource#">
-      select * from books where ISBN13='#book#'
+    <cfquery name="allGenres" datasource="#application.dsource#">
+      select * from genres order by genreName
     </cfquery>
-    <cfquery name="allpublishers" datasource="#application.dsource#">
+    <cfquery name="bookGenres" datasource="#application.dsource#">
+      select * from genrestobooks where bookID = '#book#'
+    </cfquery>
+    <cfquery name = "thisbook" datasource = "#application.dsource#">
+      select * from books where ISBN13 = '#book#'
+    </cfquery>
+    <cfquery name = "allpublishers" datasource = "#application.dsource#">
       select * from publisher order by name
     </cfquery>
     <cfoutput>
-        <form action="#cgi.script_name#?tool=addedit" method="post" enctype="multipart/form-data" class="form-horizontal">
-          
+        <form action="#cgi.script_name#?tool=#tool#&book=#url.book#"
+              method="post"
+              enctype="multipart/form-data"
+              class="form-horizontal">
+      <!---#cgi.script_name#?tool=addedit--->
           <!---    Hidden qterm        --->
           <input type="hidden" name="qterm" value="#qterm#">
-          <!---     ISBN13      --->
+          <!---   By default show the display             --->
+          <cfset isbnfield = "none">
+          <cfset isbndisplay = "inline">
+          <cfset req = ''>
+          <!---   If the ISBN13 from the db is blank, show the ISBN13 input             --->
+          <cfif trim(thisbook.ISBN13[1]) eq ''>
+            <cfset isbnfield = "inline">
+            <cfset isbndisplay = "none">
+            <cfset req = "required">
+          </cfif>
+          <!---     ISBN13 form group     --->
           <div class="form-group row">
-            <label for="ISBN13" class="col-sm-2 control-label">ISBN13:</label>
+             <label for="ISBN13" class="col-sm-2 control-label">ISBN13:</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" name="ISBN13" value="#thisbook.ISBN13[1]#" placeholder="Enter ISBN13">
+              <span id="newISBN13area" style="display: #isbnfield#">
+                <input id="newISBN13" class="form-control" type="text" name="newISBN13" value="#thisbook.ISBN13[1]#" placeholder="Enter ISBN13" pattern="{13}" required>
+              </span>
+              <span style="display: #isbndisplay#">
+                #thisbook.ISBN13[1]#
+                <button type="button" onclick="toggleNewISBNForm()" class="btn btn-warning btn-xs">Edit ISBN</button>
+                <input type="hidden" class="form-control" name="ISBN13" value="#thisbook.ISBN13[1]#" placeholder="Enter ISBN13" pattern="{13}">
+              </span>
             </div>
           </div>
 
@@ -48,7 +74,8 @@
           <div class="form-group row">
             <label for="title" class="col-sm-2 control-label">Title:</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" name="title" value="#thisbook.title[1]#" placeholder="Enter Book Title">
+              <!---      Max Length 45          --->
+              <input type="text" class="form-control" name="title" value="#thisbook.title[1]#" placeholder="Enter Book Title" required>
             </div>
           </div>
 
@@ -115,7 +142,7 @@
                 <cfloop query="allpublishers">
                   <cfset sel="">
                   <cfif thisbook.publisher[1] eq publisherID>
-                    <cfset sel="selected">
+                    <cfset sel = "selected">
                   </cfif>
                   <option value=#trim(publisherID)# #sel#>#trim(name)#</option>
                 </cfloop>
@@ -123,11 +150,18 @@
             </div>
           </div>
 
+          <!---    Price        --->
+          <div class="form-group row">
+                <label for="price" class="col-sm-2 control-label">Price:</label>
+            <div class="col-sm-10">
+              <input type="number" step="0.01" class="form-control" name="price" value="#thisbook.price[1]#" placeholder="Enter the Price">
+            </div>
+          </div>
           <!---    Weight        --->
           <div class="form-group row">
                 <label for="weight" class="col-sm-2 control-label">Weight:</label>
             <div class="col-sm-10">
-              <input type="number" step="0.1" class="form-control" name="weight" value="#thisbook.weight[1]#" placeholder="Enter the Weight">
+              <input type="number" step="0.01" class="form-control" name="weight" value="#thisbook.weight[1]#" placeholder="Enter the Weight">
             </div>
           </div>
 
@@ -137,89 +171,136 @@
             <textarea id="bookDesc" name="description">
               #trim(thisbook.description[1])#
             </textarea>
+            <script>ClassicEditor.create(document.querySelector('##bookDesc'))</script>
           </div>
 
           <!---  Cover Image          --->
           <div class="form-group row">
-            <label for="image" class="col-sm-2 control-label">Cover:</label>
+            <label for="image" class="col-sm-2 col-form-label">Cover:</label>
             <div class="col-sm-10">
               <img src="/msyke65870/myFinalProject/images/#thisbook.image[1]#">
               <input type="hidden" name="image" value="#thisbook.image[1]#">
-              <input type="file" class="form-control" id="coverImage" name="image" value="#thisbook.image[1]#" placeholder="Upload Cover Image">
+              <input type="file"
+                     class="form-control"
+                     id="uploadImage"
+                     name="uploadImage">
             </div>
           </div>
+          <cfloop query="allGenres">
+          <div class="form-check">
+            <label class="col-sm-2 col-form-label" for="genre">
+            <input type="checkbox" class="form-check-input" value="#genreID#" id="genre#genreID#">
+            </div>
+          </cfloop>
 
+      <cfloop query="bookGenres">
+          <script type="text/javascript">
+            document.getElementById('genre#genreID#').checked = true;
+          </script>
+      </cfloop>
           <!---    Submit Button        --->
           <button type="submit" class="btn btn-primary" style="width: 100%">Add Book</button>
-          <label>&nbsp</label>
         </form>
     </cfoutput>
   </cfif>
 </cffunction>
 
-<cffunction  name="processForms">
+<cffunction  name = "processForms">
   <cfif form.keyExists('ISBN13')>
-    <cfdump  var="#form#" label="Forms">
-    <cfif form.keyExists('coverImage') and form.coverImage neq ''>
-      <cffile action="upload" filefield="coverImage" destination="#expandpath('/msyke65870/myFinalProject/images')#" nameconflict="makeunique">
+    <cfquery name="deleteGenresForBook" datasource="#application.dsource#">
+      delete from genrestobooks where bookID = '#form.ISBN13#'
+    </cfquery>
+    <!---DELETE DUMP--->
+    <cfdump  var = "#form#" label = "Forms">
+    <cfif form.keyExists("uploadImage") and form.uploadImage neq ''>
+      <cffile action = "upload"
+              filefield = "uploadImage"
+              destination = "#expandPath('/msyke65870/myFinalProject/images/')#"
+              nameconflict = "makeunique">
       <cfset form.image = cffile.serverfile>
-      <cfdump var="cffile">
+      <cfdump var = "#cffile#">
     </cfif>
-    <cfquery name="putBookIn" datasource="#application.dsource#">
+    <cfset form.ISBN13 = form.newISBN13>
+    <cfquery name = "putBookIn" datasource = "#application.dsource#">
       if not exists(select * from books where ISBN13 = '#form.ISBN13#')
         insert into books
         (ISBN13, title)
         values
         ('#form.ISBN13#', '#form.title#');
         update books set 
-        title='#form.title#',
-        weight='#form.weight#',
-        year='#form.year#',
-        isbn='#form.isbn#',
-        pages='#form.pages#',
-        language='#form.language#',
-        binding='#form.binding#',
-        publisher='#form.publisher#',
-        image='#form.image#',
-        description='#form.description#'
-        where ISBN13='#form.ISBN13#'
+        title = '#form.title#',
+        weight = '#form.weight#',
+        year = '#form.year#',
+        isbn = '#form.isbn#',
+        pages = '#form.pages#',
+        language = '#form.language#',
+        binding = '#form.binding#',
+        publisher = '#form.publisher#',
+        image = '#form.image#',
+        description = '#form.description#',
+        price = '#form.price#'
+        where ISBN13 = '#form.ISBN13#'
     </cfquery>
+    <cfif isdefined('form.newISBN13')>
+      <cfquery datasource = '#application.dsource#'>
+        update books set ISBN13 = '#form.newISBN13#' where ISBN13 = '#form.ISBN13#'
+      </cfquery>
+    </cfif>
+
+    <cfif form.keyExists("genre") and form.genre neq ''>
+      <cfloop list="#form.genre# index="i">
+        insert into genretobooks (bookID, genreID)
+        values
+        ('#form.ISBN13#'
+        <cfquery name="putingenre" datasource="application.dsource"></cfquery>
+      </cfloop>
+    </cfif>
   </cfif>
 </cffunction>
 
-<cffunction  name="sideNav">
-  <cfif qterm neq ''>
-    <cfquery name="allBooks" datasource="#application.dsource#">
-      select * from books where title like '%#qterm#%' order by title
-    </cfquery>
-  </cfif>
+<cffunction  name = "sideNav">
   <cfoutput>
     <form action="#cgi.script_name#?tool=addedit" method="post" class="form-inline">
       <div class="form-group">
-        <input type="text" class="form-control" id="qterm" name="qterm" value="#qterm#">
+        <input type="text" class="form-control" id="qterm" name="qterm" value="#qterm#" placeholder="Find a Book">
         <button type="submit" class="btn btn-xs btn-primary">Search</button>
       </div>
     </form>
   </cfoutput>
+  <cfif qterm neq ''>
+    <cfquery name = "allBooks" datasource = "#application.dsource#">
+      select * from books where title like '%#qterm#%' order by title
+    </cfquery>
+  </cfif>
   <cfoutput>
-    <div>
+    <div>Book List</div>
       <ul class="nav flex-column">
-        <div>Book List</div>
+        <li class="nav-item">
+          <a href="#cgi.script_name#?tool=addedit&book=new" class="nav-link">Add a Book</a>
+        </li>
         <cfif isdefined('allBooks')>
-          <li>
-            <a href="#cgi.script_name#?tool=addedit&book=new">Add a Book</a>
-          </li>
-          <cfloop query="allBooks">
-            <li>
-              <a href="#cgi.script_name#?tool=addedit&book=#ISBN13#&qterm=#qterm#">#trim(title)#</a>
+          <cfloop query = "allBooks">
+            <li class="nav-item">
+              <a href="#cgi.script_name#?tool=addedit&book=#ISBN13#&qterm=#qterm#" class="nav-link">#trim(title)#</a>
             </li>
           </cfloop>
-        <cfelse>
-          No Search Term Entered
         </cfif>
       </ul>
-    </div>
   </cfoutput>
 </cffunction>
+
+<script>
+  function toggleNewISBNForm() {
+    var newISBNarea = document.getElementById('newISBN13area');
+
+    if (newISBNarea.style.display == 'none') {
+      newISBNarea.style.display = 'inline';
+    } else {
+      newISBNarea.style.display = 'none'
+    }
+  }
+</script>
+
+
 
 
