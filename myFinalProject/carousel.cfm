@@ -8,13 +8,13 @@
       <img src="images/adobe.jpg" class="d-block w-100 " alt="..."  style="width:65% !important; margin-left:auto;margin-right:auto">
       <div class="carousel-caption d-none d-md-block">
           <h5>Adobe Dreamweaver</h5>
-          <p>2020</p>
+          <p>Learn all about Dreamweaver 2020</p>
       </div>
   </div>
   <div class="carousel-item">
       <img src="images/abovethefold.jpg" class="d-block w-100" alt="..."  style="width:65% !important; margin-left:auto;margin-right:auto">
       <div class="carousel-caption d-none d-md-block">
-          <h5>Above The Fold</h5>
+          <h4>Above The Fold</h4>
           <p>A book about design</p>
       </div>
   </div>
@@ -55,13 +55,6 @@
           </tr>
           </tbody>
       </table>
-      <div class="carousel-caption">
-
-      </div>
-      <div class="carousel-caption d-none d-md-block">
-          <h5>Encyclopedia Brown</h5>
-          <p>Boy Detective.</p>
-      </div>
   </div>
 </div>
 <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">

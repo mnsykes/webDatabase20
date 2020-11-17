@@ -1,11 +1,15 @@
 /* CSS Document */
+body {
+	background: red;
+}
+
 #wrapper {
 	border: thin solid black;
+	height: 100vh;
 }
 
 #top-header {
-	font-size: 60px;
-	text-align: center;
+	font-size: 90px;
 }
 
 #footer {
@@ -16,6 +20,7 @@
 
 #main-content {
 	border-left: thin solid black;
+	background: red;
 }
 
 #main {
@@ -25,3 +30,8 @@
 .navbar {
 	width: 100%;
 }
+
+#horizontalnav {
+	border: 2px solid red;
+}
+

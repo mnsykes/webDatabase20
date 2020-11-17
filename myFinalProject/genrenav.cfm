@@ -1,18 +1,16 @@
 <cfquery name="allgenres" datasource="#application.dsource#">
-    select distinct genres.genreID, genres.genreName * from genres
-    inner join genrestoboook on genres.genreID = genretobook.genreID
-    inner join books on genrestobook.bookID = books.ISBN13
+    select distinct genrestobooks.genreID, genres.genreName from genrestobooks
+    inner join genres on genres.genreID = genrestobooks.genreID
 
 </cfquery>
 
 
-<cfoutput query="allgenres">
 
-
-    <ul class="nav flex-column">
-    <li class="nav-item"><a href="#cgi.script_name#?p=details&genre" class="nav-link">#genreName#</a></li>
+<ul class="nav flex-column">
+    <cfoutput query="allgenres">
+        <li class="nav-item">
+            <a href="#cgi.script_name#?p=details&genre=#genreID#" class="nav-link">#genreName#</a>
+        </li>
+    </cfoutput>
 </ul>
 
-
-
-</cfoutput>

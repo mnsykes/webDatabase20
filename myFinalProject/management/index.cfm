@@ -10,19 +10,21 @@
 			crossorigin="anonymous"
 		/>
 		<script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script>
-		<link rel="stylesheet" type="text/css" href="../../includes/css/mycss.css">
+		<link rel="stylesheet" type="text/css" href="../styles/styles.css">
 		<title>Inventory Management</title>
   </head>
 	<cfparam name="tool" default="addedit">
 	<body>
-		<div id="wrapper" class="container-fluid">
+
+		<div id="wrapper" class="container">
 			<div id="top-header" class="row" style="text-align: center !important">
 				<cfinclude  template="../header.cfm">
 			</div>
 			<div class="toolbar">
+				<cfinclude template="../horizontalnav.cfm">
 				<cfinclude  template="managementnavbar.cfm">
 			</div>
-			<div id="main" class="row">
+			<div id="main-area" class="row">
 				<cfinclude  template="#tool#.cfm">
 			</div>
 			<div id="footer" class="row bg-light text-dark" style="text-align: center !important">

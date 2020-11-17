@@ -10,11 +10,12 @@
 			crossorigin="anonymous"
 		/>
 		<link href="../includes/css/class.css" rel="stylesheet" />
-		<link href="../includes/css/mycss.css" rel="stylesheet" />
+		<link href="styles/styles.css" rel="stylesheet">
 	</head>
-	 <cfinclude  template="stateinfo.cfm"> 
+
 	<body>
 		<cfparam name="p" default="carousel">
+		<cfinclude  template="stateinfo.cfm">
 		<div id="wrapper" class="container">
 			<div id="top-header" class="row" style="text-align: center !important">
 				<cfinclude  template="header.cfm">

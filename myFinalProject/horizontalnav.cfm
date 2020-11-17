@@ -2,7 +2,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-        <a href="" class="navbar-brand">
+        <a href="index.cfm" class="navbar-brand">
         <img src="../includes/classimages/rdb.png"/>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -15,13 +15,13 @@
                     <a class="nav-link" href="index.cfm">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">Store Information</a>
+                    <a href="/msyke65870/MyFinalProject/index.cfm?p=content&content=1FBB8B31-8D8B-4351-AE1D5556F8FA2569" class="nav-link" >Store Info</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">Highlighted Favorites</a>
+                    <a class="nav-link" href="/msyke65870/MyFinalProject/index.cfm?p=content&content=E0C8AFA2-6B0D-4DC7-B84080927B5E9EA7">Events</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">Events</a>
+                    <a class="nav-link" href="/msyke65870/MyFinalProject/index.cfm?p=content&content=1108BDEA-B9F4-4477-94F93DDB55CED408">Staff Favorites</a>
                 </li>
                 <li>
                     <cfoutput>
@@ -35,20 +35,20 @@
             <ul class="nav navbar-nav navbar-right">
                 <cfoutput>
                     <cfif session.isloggedin>
-                        <li>
-                            <a>Welcome #session.user.firstName#</a>
+                        <li class="nav-item">
+                            <a class="nav-link">Welcome #session.user.firstName#</a>
                         </li>
                         <cfif session.user.isadmin>
-                                <li>
-                                    <a href="/msyke65870/myFinalProject/management">Management</a>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/msyke65870/myFinalProject/management">Management</a>
                                 </li>
                         </cfif>
-                        <li>
-                            <a href="#cgi.script_name#?p=logoff">Logout</a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#cgi.script_name#?p=logoff">Logout</a>
                         </li>
                     <cfelse>
-                        <li>
-                            <a href="#cgi.script_name#?p=login">Login</a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#cgi.script_name#?p=login">Login</a>
                         </li>
                     </cfif>
                 </cfoutput>

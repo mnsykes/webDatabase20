@@ -4,10 +4,10 @@
 <cfoutput>
   <cftry>
     <cfset processForms()>
-    <div id ="leftgutter" class ="col-sm-2 col-lg-pull-10">
+    <div id ="leftgutter" class ="col-lg-3 col-lg-pull-9">
        <cfset sideNav()>
     </div>
-    <div id="main" class="col-sm-10 col-lg-push-2">
+    <div id="main-form" class="col-lg-9 col-lg-push-3">
       <cfset mainForm() >
     </div>
     <cfcatch type="any">
@@ -28,16 +28,21 @@
     <cfquery name="allGenres" datasource="#application.dsource#">
       select * from genres order by genreName
     </cfquery>
+
     <cfquery name="bookGenres" datasource="#application.dsource#">
       select * from genrestobooks where bookID = '#book#'
     </cfquery>
-    <cfquery name = "thisbook" datasource = "#application.dsource#">
+
+    <cfquery name = "thisbook" datasource="#application.dsource#">
       select * from books where ISBN13 = '#book#'
     </cfquery>
-    <cfquery name = "allpublishers" datasource = "#application.dsource#">
+
+    <cfquery name = "allpublishers" datasource="#application.dsource#">
       select * from publisher order by name
     </cfquery>
+
     <cfoutput>
+      <h1>Book Edit Form</h1>
         <form action="#cgi.script_name#?tool=#tool#&book=#url.book#"
               method="post"
               enctype="multipart/form-data"
@@ -45,7 +50,7 @@
       <!---#cgi.script_name#?tool=addedit--->
           <!---    Hidden qterm        --->
           <input type="hidden" name="qterm" value="#qterm#">
-          <!---   By default show the display             --->
+          <!---   By default show the display   --->
           <cfset isbnfield = "none">
           <cfset isbndisplay = "inline">
           <cfset req = ''>
@@ -186,18 +191,25 @@
                      name="uploadImage">
             </div>
           </div>
-          <cfloop query="allGenres">
-          <div class="form-check">
-            <label class="col-sm-2 col-form-label" for="genre">
-            <input type="checkbox" class="form-check-input" value="#genreID#" id="genre#genreID#">
-            </div>
+
+          <!---Genre checkboxes--->
+          <cfloop query="allgenres">
+              <div class="form-check">
+                <input class="form-check-input"
+                       type="checkbox"
+                       name="genre"
+                       value="#genreID#"
+                       id="genre#genreID#">
+                <label class="form-check-label" for="genre">#genreName#</label>
+              </div>
           </cfloop>
 
-      <cfloop query="bookGenres">
-          <script type="text/javascript">
-            document.getElementById('genre#genreID#').checked = true;
-          </script>
-      </cfloop>
+          <!---Loop through genres to assign them to a book--->
+          <cfloop query="bookGenres">
+              <script type="text/javascript">
+                document.getElementById('genre#genreID#').checked = true;
+              </script>
+          </cfloop>
           <!---    Submit Button        --->
           <button type="submit" class="btn btn-primary" style="width: 100%">Add Book</button>
         </form>
@@ -210,17 +222,20 @@
     <cfquery name="deleteGenresForBook" datasource="#application.dsource#">
       delete from genrestobooks where bookID = '#form.ISBN13#'
     </cfquery>
-    <!---DELETE DUMP--->
-    <cfdump  var = "#form#" label = "Forms">
     <cfif form.keyExists("uploadImage") and form.uploadImage neq ''>
       <cffile action = "upload"
               filefield = "uploadImage"
               destination = "#expandPath('/msyke65870/myFinalProject/images/')#"
               nameconflict = "makeunique">
       <cfset form.image = cffile.serverfile>
-      <cfdump var = "#cffile#">
     </cfif>
     <cfset form.ISBN13 = form.newISBN13>
+    <cfif isdefined('form.newISBN13')>
+      <cfquery datasource = '#application.dsource#'>
+        update books set ISBN13 = '#form.newISBN13#' where ISBN13 = '#form.ISBN13#'
+      </cfquery>
+    </cfif>
+
     <cfquery name = "putBookIn" datasource = "#application.dsource#">
       if not exists(select * from books where ISBN13 = '#form.ISBN13#')
         insert into books
@@ -241,20 +256,19 @@
         price = '#form.price#'
         where ISBN13 = '#form.ISBN13#'
     </cfquery>
-    <cfif isdefined('form.newISBN13')>
-      <cfquery datasource = '#application.dsource#'>
-        update books set ISBN13 = '#form.newISBN13#' where ISBN13 = '#form.ISBN13#'
-      </cfquery>
-    </cfif>
 
-    <cfif form.keyExists("genre") and form.genre neq ''>
-      <cfloop list="#form.genre# index="i">
-        insert into genretobooks (bookID, genreID)
-        values
-        ('#form.ISBN13#'
-        <cfquery name="putingenre" datasource="application.dsource"></cfquery>
-      </cfloop>
-    </cfif>
+
+      <cfif form.keyExists("genre") and form.genre neq ''>
+        <cfloop list="#form.genre#" index="i">
+          <cfquery name="putingenre" datasource="#application.dsource#">
+            insert into genrestobooks (bookID, genreID)
+              values
+              ('#form.ISBN13#', '#i#')
+          </cfquery>
+        </cfloop>
+      </cfif>
+
+
   </cfif>
 </cffunction>
 

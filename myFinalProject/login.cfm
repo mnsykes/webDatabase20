@@ -35,7 +35,7 @@
         </div>
         <div class="form-group">
           <label for="lastName">Last Name</label>
-          <input type="lastName" class="form-control" name="lastName" id="lastName" value='' required>
+          <input type="lastName" class="form-control" name="lastName" id="lastName" value="" required>
         </div>
         <div class="form-group">
           <label for="email">Email address</label>
@@ -58,7 +58,7 @@
     <div class='col-lg-6'>
       <div id="loginmessage">#loginmessage#</div>
       <h3>Login Here</h3>
-      <form action="#cgi.script_name#?p=login" method="post">
+      <form action="#cgi.script_name#?p=login" method="post" class="form-horizontal">
         <div class="form-group">
           <label for="loginemail">Email address</label>
           <input type="email" class="form-control" name="loginemail" id="loginemail" aria-describedby="emailHelp" value='' required>

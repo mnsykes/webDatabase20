@@ -28,6 +28,7 @@
         <div id="topheader">Class INFO 2480 Web Site Database Implementation - Local Host Table of Contents Page</div></cfoutput>
 		<div id="mainarea">
 			<div id="leftgutter" class="col-lg-3 col-md-3 col-sm-3">
+
 				<ul class="nav flex-column">
 					<li style="cursor:pointer">
 						<a onclick="getarticle('aboutpage.cfm')" target="_blank">What is this page?</a>
